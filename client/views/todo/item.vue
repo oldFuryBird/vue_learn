@@ -77,7 +77,7 @@ export default {
         width:40px;
         position:absolute
         top:9px;
-        background: url('../assets/imgs/done.svg')
+        background: url('../../assets/imgs/done.svg')
         opacity:0
         z-index:1
       }
