@@ -3,12 +3,13 @@ const path = require('path') // 这里是命令行运行的 不支持es6 import 
 const isDev = process.env.NODE_ENV === 'development'
 const HTMLPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const config = {
   target: 'web',
 
   entry:path.join(__dirname,'src/index.js'),
   output:{
-    filename:'bundle.js',
+    filename:'bundle.[hash:8].js',
     path:path.join(__dirname, 'dist')
   },
   module: {
@@ -21,13 +22,13 @@ const config = {
         test:/\.jsx$/,
         loader: 'babel-loader'
       },
-      {
-        test:/\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
-      },
+      // {
+      //   test:/\.css$/,
+      //   use: [
+      //     'style-loader',
+      //     'css-loader'
+      //   ]
+      // },
       {
         test:/\.(png|gif|svg|jpe?g)$/,
         use:[
@@ -40,20 +41,7 @@ const config = {
           }
         ]
       },
-      {
-        test:/\.styl$/,
-        use:[
-          'style-loader',
-          'css-loader',
-          {
-            loader:'postcss-loader',
-            options: {
-              sourceMap:true
-            }
-          },
-            'stylus-loader',
-        ]
-      }
+
     ]
   },
   plugins:[
@@ -71,6 +59,20 @@ const config = {
 if(isDev){
   config.devtool = '#cheap-module-eval-source-map'     // 配置source map 可以直接找到代码关系
   config.mode="development"
+  config.module.rules.push(  {
+      test:/\.styl$/,
+      use:[
+        'style-loader',
+        'css-loader',
+        {
+          loader:'postcss-loader',
+          options: {
+            sourceMap:true
+          }
+        },
+          'stylus-loader',
+      ]
+    })
   config.devServer = {
     port:8000,
     host:'0.0.0.0', // 所有的网卡都可以访问
@@ -85,5 +87,26 @@ if(isDev){
     new webpack.HotModuleReplacementPlugin(), //hot功能的plugin
     new webpack.NoEmitOnErrorsPlugin() // 减少非必要信息
   )
+}else{
+  config.output.filename = '[name].[chunkHash:8].js'
+  config.module.rules.push(  {
+      test:/\.styl$/,
+      use:[
+        MiniCssExtractPlugin.loader,
+        'css-loader',
+        {
+          loader:'postcss-loader',
+          options: {
+            sourceMap:true
+          }
+        },
+          'stylus-loader',
+      ]
+    })
+    config.plugins.push(
+      new MiniCssExtractPlugin({
+        filename:"[contenthash:8].css"
+      })
+    )
 }
 module.exports = config

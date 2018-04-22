@@ -1,16 +1,38 @@
 <template>
-  <div id="test">{{text}}</div>
+  <div id="app">
+    <div id="cover"></div>
+    <Header></Header>
+    <Todo></Todo>
+    <Footer></Footer>
+  </div>
 </template>
 <script type="text/javascript">
+import Header from './todo/header.vue'
+import Todo from './todo/todo.vue'
+import Footer from './todo/footer.jsx'
 export default {
-      data() {
-        return {text:'abc'}
+      components: {
+        Header,Footer,Todo
       }
   }
 </script>
-<style media="screen">
-#test{
-  color:red;
+<style lang='stylus' scoped>
+#app{
+  position:absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+#cover {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #999;
+  opacity: 0.9;
+  z-index: -1;
 }
 
 </style>

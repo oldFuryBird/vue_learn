@@ -52,6 +52,20 @@
       - transform-vue-jsx 转化vue的js代码
   mode config.mode 可以选 production 或 development
 
+  app.vue template 只能有一个节点
+
+  style  lang指定css编译器  scoped 该组件的样式只在当前组件内生效
+
+  jsx 本身使用js语法,讲html写在js里面 可以更加强大 vue 结构更清晰
+
+  @keyup --> v-on:keyup
+
+  @keyup.enter = action  enter之后才执行action
+
+  autofocus 自动选中
+
+  不要在下层组件中操作上层组件的数据,数据在哪里声明至少应该在那里操作
+
 ### 学习如何写组件
 #### 数据绑定
 - 将数据直接绑定到html上面去
