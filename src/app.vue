@@ -4,7 +4,7 @@
 <script type="text/javascript">
 export default {
       data() {
-        return {text:'hello'}
+        return {text:'abc'}
       }
   }
 </script>
