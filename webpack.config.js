@@ -88,7 +88,16 @@ if(isDev){
     new webpack.NoEmitOnErrorsPlugin() // 减少非必要信息
   )
 }else{
-  config.output.filename = '[name].[chunkHash:8].js'
+    config.mode="production"
+  config.entry = {
+    app:path.join(__dirname,'src/index.js'),
+    vendor:['vue']
+  }
+  config.output={
+    path:path.resolve(__dirname,'dist'),
+    filename:'[chunkhash].js',
+    chunkFilename: '[chunkhash].js'
+  }
   config.module.rules.push(  {
       test:/\.styl$/,
       use:[
@@ -103,10 +112,32 @@ if(isDev){
           'stylus-loader',
       ]
     })
+    const optimize = {
+      runtimeChunk: true,
+          splitChunks: {
+              chunks: "all",
+              cacheGroups: {
+              // vendor:{
+              //   chunks:"all",
+              //   name:'vendor',
+              //   // test:/vue/,
+              //   },
+              // runtime:{
+              //   chunks: 'initial',
+              //   name:'runtime',
+              //   test:'/webpack/'
+              }
+              // }
+          }
+    }
+    config.optimization = optimize
     config.plugins.push(
       new MiniCssExtractPlugin({
         filename:"[contenthash:8].css"
-      })
+      }),
+      // new webpack.optimize.CommonsChunkPlugin({
+      //   name:'vendor'
+      // })// webpack4 废弃
     )
 }
 module.exports = config

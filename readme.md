@@ -66,6 +66,14 @@
 
   不要在下层组件中操作上层组件的数据,数据在哪里声明至少应该在那里操作
 
+### webpack4升级
+  插件和loader api都发生变化
+  mode的配置项 区分
+  CommonsChunkPlugin 取消 由内置的optimization取代
+  插件变化
+
+  
+
 ### 学习如何写组件
 #### 数据绑定
 - 将数据直接绑定到html上面去
