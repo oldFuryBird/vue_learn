@@ -40,7 +40,17 @@
   vue API 重点
     - 生命周期方法
     - computed  reactive框架, computed计算得到新的值
-    -
+
+  postcss-loader  后处理css
+
+  babel-loader/babel-core
+
+  autoprefixer  autoprefixer 自动给浏览器加前缀支持的属性
+
+  .babelrc
+    - plugins
+      - transform-vue-jsx 转化vue的js代码
+  mode config.mode 可以选 production 或 development
 
 ### 学习如何写组件
 #### 数据绑定

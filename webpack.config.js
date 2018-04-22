@@ -5,6 +5,7 @@ const HTMLPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 const config = {
   target: 'web',
+
   entry:path.join(__dirname,'src/index.js'),
   output:{
     filename:'bundle.js',
@@ -15,6 +16,10 @@ const config = {
       {
         test:/\.vue$/,
         loader: 'vue-loader'
+      },
+      {
+        test:/\.jsx$/,
+        loader: 'babel-loader'
       },
       {
         test:/\.css$/,
@@ -40,7 +45,13 @@ const config = {
         use:[
           'style-loader',
           'css-loader',
-          'stylus-loader'
+          {
+            loader:'postcss-loader',
+            options: {
+              sourceMap:true
+            }
+          },
+            'stylus-loader',
         ]
       }
     ]
@@ -59,6 +70,7 @@ const config = {
 //判断 cross-env 在不同平台上传递环境变量
 if(isDev){
   config.devtool = '#cheap-module-eval-source-map'     // 配置source map 可以直接找到代码关系
+  config.mode="development"
   config.devServer = {
     port:8000,
     host:'0.0.0.0', // 所有的网卡都可以访问
